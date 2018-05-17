@@ -6,7 +6,8 @@ import numpy as np
 np.random.seed(17)
 # (num examples, num trades in t, num currencey pairs, num of time periods, num currencey pairs, num features per trade)
 x = np.random.randn(100,70,87,20,4)
-y = np.random.randn(100,1)
+y = np.random.randn(100,87)
+
 def build_model():
 	model = keras.Sequential()
 	num_trades_in_t = x.shape[1] #differs among examples and pairs
@@ -31,7 +32,7 @@ def build_model():
 	model.add(Reshape((num_time_periods, num_currencey_pairs * num_features)))
 
 	#RNN
-	model.add(LSTM(1))
+	model.add(LSTM(87))
 	
 	model.compile(loss='mean_squared_error', optimizer='adam')
 	return model
